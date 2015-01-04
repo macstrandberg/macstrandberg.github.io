@@ -30,7 +30,7 @@
   };
   
   function rotateArm(arm, time) {
-    $('.' + arm).css('-webkit-transform', 'rotate(' + ((arm === 'hour') ? time * 15 : time * 6) + 'deg)');
+    $('.' + arm).css('-webkit-transform', 'rotate(' + ((arm === 'hour') ? time % 12 : time * 6) + 'deg)');
   }
   
   $('document').ready(function () {
