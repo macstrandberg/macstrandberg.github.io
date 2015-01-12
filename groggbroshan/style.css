@@ -1,0 +1,41 @@
+html, body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h2 > a:hover,
+h2 > a:visited{
+  color: black;
+  text-decoration: none;
+}
+
+h2 {
+  cursor: pointer;
+}
+.card {
+  width: 150px;
+  padding: 10px;
+  margin: 20px;
+  background-color: #F9F9F9;
+  box-shadow: 5px 5px 5px #2c3e50;
+  display: inline-block;
+}
+
+.card > strong {
+  font-family: 'Open Sans:300', sans-serif;
+}
+
+.card > li {
+  list-style-type: square;
+}
+
+img {
+  width: 100px;
+  height: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.nameOfDrink {
+}

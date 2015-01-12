@@ -1,0 +1,19 @@
+{
+  "name": "Groggbroshan",
+  "version": "0.1.0",
+  "description": "Sök efter groggar baserat på ingredienser",
+  "main": "index.js",
+//  "repository": {
+//    "type": "git",
+//    "url": "git://github.com/christkv/myfirstproject.git"
+//  },
+  "dependencies": {
+    "mongodb": "~2.0"
+  },
+  "author": "Marcus Strandberg",
+  "license": "Apache 2.0",
+//  "bugs": {
+//    "url": "https://github.com/christkv/myfirstproject/issues"
+//  },
+  "homepage": "macstrandberg.github.io/groggbroshan"
+}
