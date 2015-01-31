@@ -1,0 +1,12 @@
+{
+  "camelcase": true,
+  "immed": true,
+  "indent": 2,
+  "latedef": true,
+  "newcap": true,
+  "quotmark": true,
+  "jquery": true",
+  "globals": {
+    "angular", false
+  }
+}

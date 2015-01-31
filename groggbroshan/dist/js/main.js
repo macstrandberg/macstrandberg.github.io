@@ -1,43 +1,28 @@
-angular.module('groggbroshan', []);
+angular.module('groggbroshan', ['ngRoute'])
+  .config(function ($routeProvider) {
+    $routeProvider
+      .when('/add', {
+        templateUrl: 'partials/add-drink.html',
+        controller: 'AddDrinkController as add'
+      })
+      .otherwise({
+        redirectTo: '/',
+        templateUrl: 'partials/main.html',
+        controller: 'MainController as main'
+      })
+  });
 (function () {
   'use strict';
 
   angular
     .module('groggbroshan')
-    .controller('MainController', ['$log', MainController]);
+    .controller('MainController', ['$http', '$log', MainController]);
 
-  function MainController($log) {
+  function MainController($http, $log) {
     var vm = this;
-    vm.database = [
-      {
-        img: './img/rum-coke.png',
-        name: 'Rom och Cola',
-        ingredients: ['rom', 'cola'],
-        alternatives: ['pepsi', 'coke', 'coca cola', 'coca-cola']
-      },
-      {
-        img: './img/irish-coffee.png',
-        name: 'Irish coffee',
-        ingredients: ['kaffe', 'whisky', 'farinsocker', 'grädde'],
-        alternatives: ['socker']
-      },
-      {
-        img: './img/vodka-redbull.png',
-        name: 'Vodka Redbull',
-        ingredients: ['vodka', 'redbull'],
-        alternatives: ['energi drink', 'energidrink', 'energidricka']
-      },
-      {
-        img: './img/jack-coke.png',
-        name: 'Jack och Cola',
-        ingredients: ['jack daniels', 'cola'],
-        alternatives: ['whisky', 'pepsi', 'coke', 'coca cola', 'coca-cola']
-      }
-    ];
 
     vm.ingredients = [];
     vm.newIngredient = '';
-    vm.searchString = '';
 
     vm.handleIngredients = function (ingredient) {
       vm.addIngredient(ingredient);
@@ -50,23 +35,77 @@ angular.module('groggbroshan', []);
     };
 
     vm.showRecipies = function (ingredient) {
-      angular.forEach(vm.database, function (recipe) {
-        for (var i = 0; i < ingredient.length; i++) {
-          if (recipe.ingredients.indexOf(ingredient[i]) !== -1 || recipe.alternatives.indexOf(ingredient[i]) !== -1) {
-            $log.debug('recipe found!');
-            $log.debug(recipe);
+      vm.returnedDrinks = '';
+      vm.returnedIngredients = '';
 
-            recipe.match = true;
+      $http.post('php/postRecipe.php', ingredient).
+        success(function (result) {
+          vm.result = true;
+          vm.returnedDrinks = result.drink.name;
+          vm.returnedIngredients = result.ingredients;
+        }).
+        error(function (data, status, headers, config) {
+          $log.error(data);
+          $log.error(status);
+          $log.error(headers);
+          $log.error(config);
 
-            // function is currently finding a match for each ingredient.
-            // fix: make sure function consider all ingredients in array from user input
-            // before sending back a match
-          }
-        }
-      });
-
-      $log.debug(vm.database);
+          vm.result = "Ett oväntat fel har påträffats. Var vänlig försök igen.";
+        });
     };
+  }
+
+}());
+(function () {
+  'use strict';
+
+  angular
+    .module('groggbroshan')
+    .controller('AddDrinkController', ['$http', '$log', AddDrinkController]);
+
+  function AddDrinkController($http, $log) {
+    var vm = this;
+
+    vm.ingredients = [];
+    vm.newIngredient = '';
+
+    vm.getAllDrinks = function () {
+      $http.get('php/getAllDrinks.php').
+        success(function (result) {
+          vm.allDrinks = result;
+        }).
+        error(function (data, status, headers, config) {
+          $log.error(data);
+          $log.error(status);
+          $log.error(headers);
+          $log.error(config);
+
+          vm.result = "Ett oväntat fel har påträffats. Var vänlig försök igen.";
+        });
+    }
+
+    vm.addIngredient = function (ingredient) {
+      vm.ingredients.push(ingredient);
+      vm.newIngredient = '';
+    }
+
+    vm.addNewDrink = function (name, ingredients) {
+      $http.post('php/postAddNewDrink.php', {name: name, ingredients: ingredients}).
+        success(function (data, status, headers, config) {
+          vm.getAllDrinks();
+
+          $log.info('Ny drink tillagd');
+          $log.info(data);
+        }).
+        error(function (data, status, headers, config) {
+          $log.error(data);
+          $log.error(status);
+          $log.error(headers);
+          $log.error(config);
+        });
+    }
+
+    vm.getAllDrinks();
   }
 
 }());

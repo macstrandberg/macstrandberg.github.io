@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-3 sidebar">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- <form class="form">
+          <div class="form-group">
+            <label for="searchForRecipe">Sök efter recept</label>
+            <input type="text" name="searchForRecipe" class="form-control" ng-model="main.searchString">
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-info pull-right">Sök</button>
+            </div>
+          </div>
+        </form> -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form class="form" ng-submit="main.handleIngredients(main.newIngredient)">
+          <div class="form-group">
+            <label>Lägg till ingrediens</label>
+            <input type="text" class="form-control" ng-model="main.newIngredient">
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-success pull-right">Lägg till</button>
+           </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <ol>
+          <li ng-repeat="listOfIngredients in main.ingredients">{{listOfIngredients}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 recipies">
+    <p class="lead" ng-hide="main.searchString.length > 0">
+      Använd formulären till vänster för att söka efter ett recept eller filtrera på ingredienser
+    </p>
+
+    <p ng-show="main.searchString.length > 0">
+      Visar recept som innehåller <span class="label label-info">{{main.searchString}}</span>
+    </p>
+
+    <p ng-show="main.ingredients.length > 0">Visar recept som innehåller
+      <span ng-repeat="listOfIngredients in main.ingredients">
+        <span class="label label-info">{{listOfIngredients}}</span>
+      </span>
+    </p>
+
+    <!-- Show results -->
+    <!-- <div class="card" ng-repeat="recipe in main.database | filter:{name: main.searchString}" ng-show="recipe.match"> -->
+    <div class="card" ng-show="main.result">
+      <!-- <img ng-src="{{recipe.img}}"> -->
+      <strong class="nameOfDrink">{{main.returnedName}}</strong>
+      <!-- <li class="ingredientsInDrink text-capitalize" ng-repeat="ingredients in recipe.ingredients"> -->
+      <li class="ingredientsInDrink text-capitalize">
+        {{main.returnedIngredients}}
+      </li>
+    </div>
+  </div>
+</div>
