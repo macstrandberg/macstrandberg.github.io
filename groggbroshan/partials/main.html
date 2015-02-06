@@ -1,28 +1,12 @@
 <div class="row">
   <div class="col-md-3 sidebar">
-    <div class="row">
-      <div class="col-md-12">
-        <!-- <form class="form">
-          <div class="form-group">
-            <label for="searchForRecipe">Sök efter recept</label>
-            <input type="text" name="searchForRecipe" class="form-control" ng-model="main.searchString">
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <button type="submit" class="btn btn-info pull-right">Sök</button>
-            </div>
-          </div>
-        </form> -->
-      </div>
-    </div>
 
     <div class="row">
       <div class="col-md-12">
-        <form class="form" ng-submit="main.handleIngredients(main.newIngredient)">
+        <form class="form" ng-submit="main.newIngredient.length > 2 && main.handleIngredients(main.newIngredient)">
           <div class="form-group">
             <label>Lägg till ingrediens</label>
-            <input type="text" class="form-control" ng-model="main.newIngredient">
+            <input type="text" class="form-control" ng-model="main.newIngredient" required>
           </div>
 
           <div class="row">
@@ -60,7 +44,9 @@
 
     <!-- Show results -->
     <div class="row">
-      <div class="col-xs-12 col-md-4"  ng-repeat="name in main.returnedDrinks">
+      <p class="lead" ng-show="main.noResults">Inga groggar hittade.</p>
+
+      <div class="col-xs-12 col-md-4" ng-repeat="name in main.returnedDrinks" ng-hide="main.noResults">
         <div class="card">
           <strong class="nameOfDrink">{{name.drink_name}}</strong>
           <li ng-repeat="ingredient in main.returnedIngredients[$index]">

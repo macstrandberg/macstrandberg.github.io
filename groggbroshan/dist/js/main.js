@@ -2,7 +2,9 @@
   'use strict';
 
   angular.module('groggbroshan', ['ngRoute'])
-    .config(['$routeProvider', function ($routeProvider) {
+    .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+      $locationProvider.html5Mode(true);
+
       $routeProvider
         .when('/add', {
           templateUrl: 'partials/add-drink.html',
@@ -12,9 +14,9 @@
           redirectTo: '/',
           templateUrl: 'partials/main.html',
           controller: 'MainController as main'
-        })
-    }]);
-}());
+        }); // $routeProvider
+    }]); // .config
+}()); // local scope
 (function () {
   'use strict';
 
@@ -42,6 +44,13 @@
     vm.showRecipies = function (ingredient) {
       $http.post('php/postRecipe.php', ingredient).
         success(function (result) {
+          $log.debug(result);
+
+          if (!result.drink) {
+            vm.noResults = true;
+            return;
+          }
+
           vm.returnedDrinks = result.drink;
 
           for (var i = 0; i < result.ingredients.length; i++) {

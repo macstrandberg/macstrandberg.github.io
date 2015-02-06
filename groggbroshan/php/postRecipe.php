@@ -25,18 +25,24 @@ try {
 
   $returnedDrink = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-  // gets all the ingredients from the specified drink(s)
-  $statement = $conn->prepare(
-    "SELECT GROUP_CONCAT(ingredients.ingredient_name ORDER BY ingredients.ingredient_name ASC SEPARATOR ',') AS ingredients
-    FROM drinks_ingredients
-    INNER JOIN drinks ON drinks_ingredients.drink_id = drinks.id
-    INNER JOIN ingredients ON drinks_ingredients.ingredient_id = ingredients.id
-    WHERE drinks.drink_name = :drink"
-  );
-  for ($i = 0; $i < count($returnedDrink); $i++) { // loop over all the returned drinks from the previous query
-    $statement->bindParam(':drink', $returnedDrink[$i]['drink_name']);
-    $statement->execute();
-    $returnedIngredients[] = $statement->fetchAll(PDO::FETCH_ASSOC); // add them to an array
+  if (!empty($returnedDrink)) {
+    // gets all the ingredients from the specified drink(s)
+    $statement = $conn->prepare(
+      "SELECT GROUP_CONCAT(ingredients.ingredient_name ORDER BY ingredients.ingredient_name ASC SEPARATOR ',') AS ingredients
+      FROM drinks_ingredients
+      INNER JOIN drinks ON drinks_ingredients.drink_id = drinks.id
+      INNER JOIN ingredients ON drinks_ingredients.ingredient_id = ingredients.id
+      WHERE drinks.drink_name = :drink"
+    );
+
+    for ($i = 0; $i < count($returnedDrink); $i++) { // loop over all the returned drinks from the previous query
+      $statement->bindParam(':drink', $returnedDrink[$i]['drink_name']);
+      $statement->execute();
+      $returnedIngredients[] = $statement->fetchAll(PDO::FETCH_ASSOC); // add them to an array
+    }
+  } else {
+    $returnedDrink = false;
+    $returnedIngredients = false;
   }
 
   echo json_encode(array(
