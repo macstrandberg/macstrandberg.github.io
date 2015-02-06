@@ -43,9 +43,9 @@
     </div>
   </div>
 
-  <div class="col-md-9 recipies">
-    <p class="lead" ng-hide="main.searchString.length > 0">
-      Använd formulären till vänster för att söka efter ett recept eller filtrera på ingredienser
+  <div class="col-md-9">
+    <p class="lead" ng-hide="main.newIngredient.length > 0 || main.ingredients.length > 0">
+      Använd formuläret till vänster för att filtrera på ingredienser
     </p>
 
     <p ng-show="main.searchString.length > 0">
@@ -59,14 +59,15 @@
     </p>
 
     <!-- Show results -->
-    <!-- <div class="card" ng-repeat="recipe in main.database | filter:{name: main.searchString}" ng-show="recipe.match"> -->
-    <div class="card" ng-show="main.result">
-      <!-- <img ng-src="{{recipe.img}}"> -->
-      <strong class="nameOfDrink">{{main.returnedName}}</strong>
-      <!-- <li class="ingredientsInDrink text-capitalize" ng-repeat="ingredients in recipe.ingredients"> -->
-      <li class="ingredientsInDrink text-capitalize">
-        {{main.returnedIngredients}}
-      </li>
+    <div class="row">
+      <div class="col-xs-12 col-md-4"  ng-repeat="name in main.returnedDrinks">
+        <div class="card">
+          <strong class="nameOfDrink">{{name.drink_name}}</strong>
+          <li ng-repeat="ingredient in main.returnedIngredients[$index]">
+            {{ingredient}}
+          </li>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -8,7 +8,7 @@ try {
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   $statement = $conn->prepare(
-    "INSERT INTO drinks (name)
+    "INSERT INTO drinks (drink_name)
     VALUES (:drinkName);"
   );
   $statement->bindParam(':drinkName', $input->name);
@@ -17,13 +17,13 @@ try {
 
   for ($i = 0; $i < count($input->ingredients); $i++) {
     $statement = $conn->prepare(
-      "INSERT INTO ingredients (name)
+      "INSERT IGNORE INTO ingredients (ingredient_name)
       VALUES (:ingredient);
 
       INSERT INTO drinks_ingredients (drink_id, ingredient_id)
       SELECT drinks.id, ingredients.id
       FROM drinks, ingredients
-      WHERE drinks.name = :drinkName AND ingredients.name = :ingredient;"
+      WHERE drinks.drink_name = :drinkName AND ingredients.ingredient_name = :ingredient;"
     );
     $statement->bindParam(':drinkName', $input->name);
     $statement->bindParam(':ingredient', $input->ingredients[$i]);

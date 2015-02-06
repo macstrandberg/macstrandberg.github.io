@@ -6,8 +6,8 @@ try {
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   $statement = $conn->prepare(
-    "SELECT drinks.name AS drink,
-      GROUP_CONCAT(ingredients.name ORDER BY ingredients.name ASC SEPARATOR ', ') AS ingredients
+    "SELECT drinks.drink_name,
+      GROUP_CONCAT(ingredients.ingredient_name ORDER BY ingredients.ingredient_name ASC SEPARATOR ', ') AS ingredients
     FROM drinks_ingredients
     INNER JOIN drinks ON drinks_ingredients.drink_id = drinks.id
     INNER JOIN ingredients ON drinks_ingredients.ingredient_id = ingredients.id

@@ -51,8 +51,8 @@
     <div class="row">
       <div class="col-xs-12 col-md-4" ng-repeat="drink in add.allDrinks">
         <div class="card">
-          <strong class="nameOfDrink">{{drink.drink}}</strong>
-          <li class="ingredientsInDrink" ng-repeat="ingredient in drink.ingredients.split(',')">
+          <strong class="nameOfDrink">{{drink.drink_name}}</strong>
+          <li ng-repeat="ingredient in drink.ingredients.split(',')">
             {{ingredient}}
           </li>
         </div>

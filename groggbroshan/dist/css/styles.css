@@ -16,15 +16,15 @@ li {
   margin-top: 5px;
 }
 
+.label {
+ border-radius: 0;
+}
+
 .sidebar button {
   margin-bottom: 15px;
 }
 
 .card {
-  /*display: inline-block;*/
-
-  /*width: 200px;*/
-  /*height: 150px;*/
   padding: 16pt;
   margin-top: 16px;
 

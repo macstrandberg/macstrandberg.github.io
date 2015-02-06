@@ -1,16 +1,20 @@
-angular.module('groggbroshan', ['ngRoute'])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/add', {
-        templateUrl: 'partials/add-drink.html',
-        controller: 'AddDrinkController as add'
-      })
-      .otherwise({
-        redirectTo: '/',
-        templateUrl: 'partials/main.html',
-        controller: 'MainController as main'
-      })
-  });
+(function () {
+  'use strict';
+
+  angular.module('groggbroshan', ['ngRoute'])
+    .config(['$routeProvider', function ($routeProvider) {
+      $routeProvider
+        .when('/add', {
+          templateUrl: 'partials/add-drink.html',
+          controller: 'AddDrinkController as add'
+        })
+        .otherwise({
+          redirectTo: '/',
+          templateUrl: 'partials/main.html',
+          controller: 'MainController as main'
+        })
+    }]);
+}());
 (function () {
   'use strict';
 
@@ -19,9 +23,10 @@ angular.module('groggbroshan', ['ngRoute'])
     .controller('MainController', ['$http', '$log', MainController]);
 
   function MainController($http, $log) {
-    var vm = this;
+    var vm = this; // bind 'this' to viewmodel so we always can access 'this'
 
     vm.ingredients = [];
+    vm.returnedIngredients = [];
     vm.newIngredient = '';
 
     vm.handleIngredients = function (ingredient) {
@@ -35,14 +40,13 @@ angular.module('groggbroshan', ['ngRoute'])
     };
 
     vm.showRecipies = function (ingredient) {
-      vm.returnedDrinks = '';
-      vm.returnedIngredients = '';
-
       $http.post('php/postRecipe.php', ingredient).
         success(function (result) {
-          vm.result = true;
-          vm.returnedDrinks = result.drink.name;
-          vm.returnedIngredients = result.ingredients;
+          vm.returnedDrinks = result.drink;
+
+          for (var i = 0; i < result.ingredients.length; i++) {
+            vm.returnedIngredients.push(result.ingredients[i][0].ingredients.split(',')); // a string is returned. split it up at every ',' and push the ingredient to the vm-array
+          };
         }).
         error(function (data, status, headers, config) {
           $log.error(data);
@@ -90,19 +94,18 @@ angular.module('groggbroshan', ['ngRoute'])
     }
 
     vm.addNewDrink = function (name, ingredients) {
-      $http.post('php/postAddNewDrink.php', {name: name, ingredients: ingredients}).
-        success(function (data, status, headers, config) {
-          vm.getAllDrinks();
-
-          $log.info('Ny drink tillagd');
-          $log.info(data);
-        }).
-        error(function (data, status, headers, config) {
-          $log.error(data);
-          $log.error(status);
-          $log.error(headers);
-          $log.error(config);
-        });
+      // $http.post('php/postAddNewDrink.php', {name: name, ingredients: ingredients}).
+      //   success(function (data) {
+      //     vm.getAllDrinks();
+      //     vm.ingredients = [];
+      //     vm.drinkName = '';
+      //   }).
+      //   error(function (data, status, headers, config) {
+      //     $log.error(data);
+      //     $log.error(status);
+      //     $log.error(headers);
+      //     $log.error(config);
+      //   });
     }
 
     vm.getAllDrinks();
