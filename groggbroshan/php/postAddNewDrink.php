@@ -1,10 +1,11 @@
 <?php
+define('ACCESS_ALLOWED', 1);
 include "vars.php";
 
 $input = json_decode(file_get_contents("php://input"));
 
 try {
-  $conn = new PDO("mysql:host=$host;dbname=$db;", $user, $password);
+  $conn = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   $statement = $conn->prepare(

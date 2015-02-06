@@ -1,4 +1,5 @@
 <?php
+define('ACCESS_ALLOWED', 1);
 include "vars.php";
 
 $ingredients = json_decode(file_get_contents("php://input")); // import form data. works like $var = $_POST[]
@@ -7,7 +8,7 @@ array_push($ingredients, $ingredientsCount); // in order for the execute-method 
 $inQuery = implode(',', array_fill(0, (count($ingredients) - 1), '?')); // ($ingredients - 1) since the length is also present in the array
 
 try {
-  $conn = new PDO("mysql:host=$host;dbname=$db;", $user, $password);
+  $conn = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   // gets all drink names that only contains the specified ingredients

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-4 sidebar">
+  <div class="col-md-4 sidebar" ng-hide="add.blocked">
     <div class="row">
       <div class="col-md-12">
         <p class="lead">Lägg till grogg</p>
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <div class="col-md-8">
+  <div class="col-md-8" ng-hide="add.blocked">
     <p class="lead visible-xs-block">Groggar i databasen</p>
 
     <div class="row">
@@ -59,4 +59,6 @@
       </div>
     </div>
   </div>
+
+  <p class="lead" ng-show="add.blocked">Åtkomst nekad.</p>
 </div>

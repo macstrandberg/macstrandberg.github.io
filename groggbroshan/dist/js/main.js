@@ -2,9 +2,7 @@
   'use strict';
 
   angular.module('groggbroshan', ['ngRoute'])
-    .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-      $locationProvider.html5Mode(true);
-
+    .config(['$routeProvider', function ($routeProvider) {
       $routeProvider
         .when('/add', {
           templateUrl: 'partials/add-drink.html',
@@ -95,29 +93,47 @@
 
           vm.result = "Ett oväntat fel har påträffats. Var vänlig försök igen.";
         });
-    }
+    };
 
     vm.addIngredient = function (ingredient) {
       vm.ingredients.push(ingredient);
       vm.newIngredient = '';
-    }
+    };
+
+    vm.checkIfAllowed = function () {
+      $http.get('php/getCheckIfAllowed.php').
+        success(function (allowed) {
+          if (!allowed) {
+            vm.blocked = 'Åtkomst nekad.'
+            return;
+          } else {
+            vm.getAllDrinks();
+          }
+        }).
+        error(function (data, status, headers, config) {
+          $log.error(data);
+          $log.error(status);
+          $log.error(headers);
+          $log.error(config);
+        });
+    };
 
     vm.addNewDrink = function (name, ingredients) {
-      // $http.post('php/postAddNewDrink.php', {name: name, ingredients: ingredients}).
-      //   success(function (data) {
-      //     vm.getAllDrinks();
-      //     vm.ingredients = [];
-      //     vm.drinkName = '';
-      //   }).
-      //   error(function (data, status, headers, config) {
-      //     $log.error(data);
-      //     $log.error(status);
-      //     $log.error(headers);
-      //     $log.error(config);
-      //   });
+      $http.post('php/postAddNewDrink.php', {name: name, ingredients: ingredients}).
+        success(function (data) {
+          vm.getAllDrinks();
+          vm.ingredients = [];
+          vm.drinkName = '';
+        }).
+        error(function (data, status, headers, config) {
+          $log.error(data);
+          $log.error(status);
+          $log.error(headers);
+          $log.error(config);
+        });
     }
 
-    vm.getAllDrinks();
+    vm.checkIfAllowed();
   }
 
 }());
