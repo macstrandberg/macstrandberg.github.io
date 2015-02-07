@@ -1,6 +1,6 @@
-html, body {
-  font-family: 'Open Sans', sans-serif;
-}
+html, body { font-family: 'Open Sans', sans-serif; }
+h2 { cursor: pointer; }
+li { margin-top: 5px; }
 
 h2 > a:hover,
 h2 > a:visited,
@@ -9,17 +9,7 @@ h2 > a:focus {
   text-decoration: none;
 }
 
-h2 {
-  cursor: pointer;
-}
-
-li {
-  margin-top: 5px;
-}
-
-.form-control[disabled] {
-  background-color: #fafafa;
-}
+.form-control[disabled] { background-color: #fafafa; }
 
 input[type=text] {
   border-radius: 0;
@@ -41,12 +31,17 @@ input[type=text]:focus {
   font-weight: 400;
 }
 
-.label {
- border-radius: 0;
+.label, .btn { border-radius: 0; }
+.sidebar button { margin-bottom: 15px; }
+
+.sidebar ol > li {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
 }
 
-.sidebar button {
-  margin-bottom: 15px;
+.main {
+  padding-bottom: 20px;
 }
 
 .card {
@@ -61,30 +56,6 @@ input[type=text]:focus {
   font-size: 14px;
 }
 
-.card > strong {
-  font-weight: 600;
-}
-
-.nameOfDrink {
-  font-size: 18px;
-}
-.card > li {
-  list-style-type: square;
-}
-
-img {
-  width: 100px;
-  height: 150px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
-}
-
-.form-control {
-  border-radius: 2pt;
-}
-
-.btn {
-  border-radius: 2pt;
-}
+.card > strong { font-weight: 600; }
+.nameOfDrink { font-size: 18px; }
+.card > li { list-style-type: square; }

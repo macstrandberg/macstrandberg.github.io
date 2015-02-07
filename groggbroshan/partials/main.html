@@ -3,7 +3,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <form class="form" ng-submit="main.newIngredient.length > 2 && main.handleIngredients(main.newIngredient)">
+        <form class="form" ng-submit="main.newIngredient.length >= 2 && main.handleIngredients(main.newIngredient)">
           <div class="form-group">
             <label>Lägg till ingrediens</label>
             <input type="text" class="form-control" ng-model="main.newIngredient" required>
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <div class="col-md-9">
+  <div class="col-md-9 main">
     <p class="lead" ng-hide="main.newIngredient.length > 0 || main.ingredients.length > 0">
       Använd formuläret till vänster för att filtrera på ingredienser
     </p>

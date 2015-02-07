@@ -1,5 +1,10 @@
+<?php
+  define('ACCESS_ALLOWED', 1);
+  include '../php/vars.php';
+  if ($_SERVER['REMOTE_ADDR'] == $allowed_ip) {
+?>
 <div class="row">
-  <div class="col-md-4 sidebar" ng-hide="add.blocked">
+  <div class="col-md-4 sidebar">
     <div class="row">
       <div class="col-md-12">
         <p class="lead">Lägg till grogg</p>
@@ -8,14 +13,14 @@
           <div class="form-group">
             <label class="col-md-3">Namn</label>
             <div class="col-md-9">
-              <input type="text" class="form-control" ng-model="add.drinkName" disabled>
+              <input type="text" class="form-control" ng-model="add.drinkName">
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-md-3">Ingredienser</label>
             <div class="col-md-9">
-              <input type="text" class="form-control" ng-model="add.newIngredient" disabled>
+              <input type="text" class="form-control" ng-model="add.newIngredient">
             </div>
           </div>
 
@@ -45,7 +50,7 @@
     </div>
   </div>
 
-  <div class="col-md-8" ng-hide="add.blocked">
+  <div class="col-md-8 main">
     <p class="lead visible-xs-block">Groggar i databasen</p>
 
     <div class="row">
@@ -57,8 +62,12 @@
           </li>
         </div>
       </div>
+      <div class="clearfix visible-lg-block"></div>
     </div>
   </div>
-
-  <p class="lead" ng-show="add.blocked">Åtkomst nekad.</p>
 </div>
+<?php
+} else {
+  echo "<p class='lead'>Åtkomst nekad</p>";
+}
+?>

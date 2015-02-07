@@ -1,5 +1,5 @@
 <?php
-define('ACCESS_ALLOWED', 1);
+define("ACCESS_ALLOWED", 1);
 include "vars.php";
 
 $input = json_decode(file_get_contents("php://input"));

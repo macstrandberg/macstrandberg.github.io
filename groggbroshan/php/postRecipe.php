@@ -1,5 +1,5 @@
 <?php
-define('ACCESS_ALLOWED', 1);
+define("ACCESS_ALLOWED", 1);
 include "vars.php";
 
 $ingredients = json_decode(file_get_contents("php://input")); // import form data. works like $var = $_POST[]

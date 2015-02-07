@@ -5,7 +5,7 @@
     .config(['$routeProvider', function ($routeProvider) {
       $routeProvider
         .when('/add', {
-          templateUrl: 'partials/add-drink.html',
+          templateUrl: 'partials/add-drink.php',
           controller: 'AddDrinkController as add'
         })
         .otherwise({
@@ -100,23 +100,22 @@
       vm.newIngredient = '';
     };
 
-    vm.checkIfAllowed = function () {
-      $http.get('php/getCheckIfAllowed.php').
-        success(function (allowed) {
-          if (!allowed) {
-            vm.blocked = 'Åtkomst nekad.'
-            return;
-          } else {
-            vm.getAllDrinks();
-          }
-        }).
-        error(function (data, status, headers, config) {
-          $log.error(data);
-          $log.error(status);
-          $log.error(headers);
-          $log.error(config);
-        });
-    };
+    // vm.checkIfAllowed = function () {
+    //   $http.get('php/getCheckIfAllowed.php').
+    //     success(function (allowed) {
+    //       if (!allowed) {
+    //         vm.blocked = 'Åtkomst nekad.'
+    //         return;
+    //       } else {
+    //       }
+    //     }).
+    //     error(function (data, status, headers, config) {
+    //       $log.error(data);
+    //       $log.error(status);
+    //       $log.error(headers);
+    //       $log.error(config);
+    //     });
+    // };
 
     vm.addNewDrink = function (name, ingredients) {
       $http.post('php/postAddNewDrink.php', {name: name, ingredients: ingredients}).
@@ -133,7 +132,8 @@
         });
     }
 
-    vm.checkIfAllowed();
+    // vm.checkIfAllowed();
+    vm.getAllDrinks();
   }
 
 }());
