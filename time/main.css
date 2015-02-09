@@ -1,0 +1,81 @@
+body {
+  margin: 0 auto;
+}
+
+.clock-face {
+  background-color: #E3F2FD;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.arm {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  margin-left: -5px;
+  width: 10px;
+  display: block;
+}
+
+.middle {
+  background-color: #E3F2FD;
+  top: 50%;
+  margin-left: 0px;
+  width: 30px;
+  height: 30px;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 500;
+  border-radius: 50%;
+}
+
+.hour {
+  background-color: #82B1FF;
+  height: 45vh;
+  z-index: 100;
+}
+
+.minute {
+  background-color: #448AFF;
+  height: 30vh;
+  z-index: 200;
+}
+
+.second {
+  background-color: #2196F3;
+  height: 20vh;
+  z-index: 300;
+}
+
+.rounded {
+  -webkit-transform-origin: bottom center;
+  -moz-transform-origin: bottom center;
+  -ms-transform-origin: bottom center;
+  -o-transform-origin: bottom center;
+  transform-origin: bottom center;
+  /*box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);*/
+  border-radius: 2pt;
+}
+
+.date {
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  width: 40%;
+  height: 100px;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: block;
+  text-align: center;
+}
+
+.date > p {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: 'Lato', sans-serif;
+  font-size: 2em;
+}
