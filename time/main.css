@@ -33,20 +33,20 @@ body {
 }
 
 .hour {
-  background-color: #82B1FF;
-  height: 45vh;
+  background-color: #2196F3;
+  height: 25vh;
   z-index: 100;
 }
 
 .minute {
   background-color: #448AFF;
-  height: 30vh;
+  height: 35vh;
   z-index: 200;
 }
 
 .second {
-  background-color: #2196F3;
-  height: 20vh;
+  background-color: #82B1FF;
+  height: 45vh;
   z-index: 300;
 }
 
@@ -71,6 +71,7 @@ body {
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   display: block;
+  z-index: 310;
   text-align: center;
 }
 
