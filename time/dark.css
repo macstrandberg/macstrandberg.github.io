@@ -1,0 +1,23 @@
+.clock-face {
+  background-color: #263238;
+}
+
+.middle {
+  background-color: #263238;
+}
+
+.hour {
+  background-color: #90AfAE;
+}
+
+.minute {
+  background-color: #90AfAE;
+}
+
+.second {
+  background-color: #607D8B;
+}
+
+.date {
+  color: rgba(255, 255, 255, 1);
+}
