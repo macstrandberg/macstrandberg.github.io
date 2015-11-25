@@ -1,15 +1,9 @@
-.clock-face {
-  background-color: #E3F2FD;
-}
-
+.clock-face,
 .middle {
   background-color: #E3F2FD;
 }
 
-.hour {
-  background-color: #82B1FF;
-}
-
+.hour,
 .minute {
   background-color: #82B1FF;
 }

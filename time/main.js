@@ -1,14 +1,7 @@
 (function () {
   'use strict';
 
-  /* todo:
-   * re-write to use animation frames(correct term?)
-   * fix hour-hand to properly align closer to next hour when minutes > 30
-   * make second-hand seamlessly float between seconds, instead of jumping to the next second each second
-  **/
-
-  var currentTime,
-      dateElement = document.querySelectorAll('.date p')[0],
+  var dateElement = document.querySelectorAll('.date p')[0],
       days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
       head = document.getElementsByTagName('head')[0],
       hour,
@@ -16,7 +9,8 @@
       millisecond,
       minute,
       minuteArm = document.getElementsByClassName('minute')[0],
-      months = ['jan', 'febr', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
+      months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
+                'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
       now,
       second,
       secondArm = document.getElementsByClassName('second')[0],
@@ -50,9 +44,11 @@
     second = now.getSeconds();
     millisecond = now.getMilliseconds();
 
-    rotateArm('hour', hour);
-    rotateArm('minute', minute);
-    rotateArm('second', second);
+    hourArm.style.transform = 'rotate(' +
+      (360 - (1440 - (60 * hour + minute)) / 2) + 'deg)';
+    minuteArm.style.transform = 'rotate(' + minute * 6 + 'deg)';
+    secondArm.style.transform = 'rotate(' +
+        (second + ((millisecond % 60000) / 1000)) * 6 + 'deg)';
 
     changeStyleByHour(hour);
 
@@ -61,23 +57,16 @@
     return now;
   }
 
-  function rotateArm(arm, time) {
-    if (arm === 'hour') {
-      hourArm.style.transform = 'rotate(' + (time % 12) * 30 + 'deg)';
-    } else if (arm === 'minute') {
-      minuteArm.style.transform = 'rotate(' + time * 6 + 'deg)';
-    } else {
-      secondArm.style.transform = 'rotate(' + time * 6 + 'deg)';
-    }
-    // document.getElementsByClassName(arm)[0].style.transform = 'rotate(' + ((arm === 'hour') ? (time % 12) * 30 : time * 6) + 'deg)';
+  function draw() {
+    requestAnimationFrame(draw);
+    updateClock();
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    currentTime = updateClock();
+    dateElement.textContent = new Date().getDayName() + ' | ' +
+    new Date().getMonthName() + ' ' + new Date().getDate();
 
-    dateElement.textContent = currentTime.getDayName() + ' | ' + currentTime.getMonthName() + ' ' + currentTime.getDate();
-
-    window.setInterval(updateClock, 1000);
+    requestAnimationFrame(draw);
   });
 
 }());
