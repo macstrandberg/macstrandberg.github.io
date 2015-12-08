@@ -44,11 +44,18 @@
     second = now.getSeconds();
     millisecond = now.getMilliseconds();
 
+    // dateElement.textContent = (minute + ((millisecond % 60000) / 1000)) * 6;
+    // dateElement.textContent = (millisecond % 60000) / 1000;
+    // dateElement.textContent = minute * 6;
+
     hourArm.style.transform = 'rotate(' +
       (360 - (1440 - (60 * hour + minute)) / 2) + 'deg)';
-    minuteArm.style.transform = 'rotate(' + minute * 6 + 'deg)';
+    minuteArm.style.transform = 'rotate(' +
+      // (minute + ((millisecond % 60000) / 1000)) * 6 + 'deg)';
+      minute * 6 + 'deg)';
     secondArm.style.transform = 'rotate(' +
-        (second + ((millisecond % 60000) / 1000)) * 6 + 'deg)';
+      (second + ((millisecond % 60000) / 1000)) * 6 + 'deg)';
+      // second * 0.006 + 'deg)';
 
     changeStyleByHour(hour);
 
