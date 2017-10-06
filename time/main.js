@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+  let days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
       dateElement = document.querySelectorAll('.date p')[0],
       head = document.getElementsByTagName('head')[0],
       months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
@@ -35,15 +35,15 @@
   };
 
   function setStyle() {
-    var style,
+    let style,
         sheet = document.styleSheets[0],
         rules = sheet.rules,
         hour = new Date().getHours();
 
     if (hour > 6 && hour < 22) {
-      style = Math.floor(Math.random() * 15)
+      style = Math.floor(Math.random() * 15); // random style
     } else {
-      style = 16;
+      style = 16; // dark style
       document.querySelector('.date').style.color = 'rgba(255, 255, 255, 1)';
     }
 
@@ -55,23 +55,25 @@
   }
 
   function initLocalClocks() {
-    var date = new Date;
-    var seconds = date.getSeconds();
-    var minutes = date.getMinutes();
-    var hours = date.getHours();
+    let date = new Date;
+    let seconds = date.getSeconds();
+    let minutes = date.getMinutes();
+    let hours = date.getHours();
 
-    var hands = [
+    let hands = [
       {hand: 'hour', angle: (hours * 30) + (minutes / 2)},
       {hand: 'minute', angle: (minutes * 6)},
       {hand: 'second', angle: (seconds * 6)}
     ];
 
     // Loop through each of these hands to set their angle
-    for (var j = 0; j < hands.length; j++) {
-      var elements = document.querySelectorAll('.' + hands[j].hand);
-      for (var k = 0; k < elements.length; k++) {
+    for (let j = 0; j < hands.length; j++) {
+      let elements = document.querySelectorAll('.' + hands[j].hand);
+
+      for (let k = 0; k < elements.length; k++) {
         elements[k].style.webkitTransform = 'rotateZ('+ hands[j].angle +'deg)';
         elements[k].style.transform = 'rotateZ('+ hands[j].angle +'deg)';
+
         // If this is a minute hand, note the seconds position (to calculate minute position later)
         if (hands[j].hand === 'minute') {
           elements[k].parentNode.setAttribute('data-second-angle', hands[j + 1].angle);
@@ -85,11 +87,13 @@
    */
   function setUpMinuteHands() {
     // Find out how far into the minute we are
-    var containers = document.querySelectorAll('.minute-container');
-    var secondAngle = containers[0].getAttribute("data-second-angle");
+    let containers = document.querySelectorAll('.minute-container');
+    let secondAngle = containers[0].getAttribute("data-second-angle");
+
     if (secondAngle > 0) {
       // Set a timeout until the end of the current minute, to move the hand
-      var delay = (((360 - secondAngle) / 6) + 0.1) * 1000;
+      let delay = (((360 - secondAngle) / 6) + 0.1) * 1000;
+
       setTimeout(function() {
         moveMinuteHands(containers);
       }, delay);
@@ -100,13 +104,14 @@
    * Do the first minute's rotation
    */
   function moveMinuteHands(containers) {
-    for (var i = 0; i < containers.length; i++) {
+    for (let i = 0; i < containers.length; i++) {
       containers[i].style.webkitTransform = 'rotateZ(6deg)';
       containers[i].style.transform = 'rotateZ(6deg)';
     }
+
     // Then continue with a 60 second interval
     setInterval(function() {
-      for (var i = 0; i < containers.length; i++) {
+      for (let i = 0; i < containers.length; i++) {
         if (containers[i].angle === undefined) {
           containers[i].angle = 12;
         } else {
@@ -116,24 +121,6 @@
         containers[i].style.transform = 'rotateZ('+ containers[i].angle +'deg)';
       }
     }, 60000);
-  }
-
-  /*
-   * Move the second containers
-   */
-  function moveSecondHands() {
-    var containers = document.querySelectorAll('.second-container');
-    setInterval(function() {
-      for (var i = 0; i < containers.length; i++) {
-        if (containers[i].angle === undefined) {
-          containers[i].angle = 6;
-        } else {
-          containers[i].angle += 6;
-        }
-        containers[i].style.webkitTransform = 'rotateZ('+ containers[i].angle +'deg)';
-        containers[i].style.transform = 'rotateZ('+ containers[i].angle +'deg)';
-      }
-    }, 1000);
   }
 
   function update() {
@@ -146,7 +133,6 @@
     new Date().getMonthName() + ' ' + new Date().getDate();
 
     initLocalClocks();
-    moveSecondHands();
     setUpMinuteHands();
     setStyle();
 
