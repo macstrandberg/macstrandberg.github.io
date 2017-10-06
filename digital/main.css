@@ -1,0 +1,138 @@
+body {
+  margin: 0 auto;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+.clock {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.clock:before {
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  content: "";
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  border-radius: 50%;
+}
+
+.hour-container, .minute-container, .second-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.arm {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  margin-left: -5px;
+  width: 10px;
+  border-radius: 2pt;
+  -webkit-transform-origin: bottom center;
+  -moz-transform-origin: bottom center;
+  -ms-transform-origin: bottom center;
+  -o-transform-origin: bottom center;
+  transform-origin: bottom center;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.hour-container {
+  animation: rotate 43200s infinite linear;
+  z-index: 10;
+}
+
+.minute-container {
+  transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44);
+  z-index: 20;
+  /*animation: rotate 3600s infinite linear;*/
+}
+
+.second-container {
+  z-index: 30;
+  animation: rotate 60s infinite linear;
+}
+
+.hour {
+  height: 25vmin;
+}
+
+.minute {
+  height: 35vmin;
+}
+
+.second {
+  height: 40vmin;
+}
+
+.date {
+  position: absolute;
+  top: 85vh;
+  left: 50%;
+  width: 100vw;
+  height: 100px;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: block;
+  z-index: 40;
+  text-align: center;
+}
+
+.clock:before, .clock, .arm {
+  -webkit-transition: background-color 0.5s ease;
+  -o-transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
+}
+
+.date {
+  -webkit-transition: color 0.5s ease;
+  -o-transition: color 0.5s ease;
+  transition: color 0.5s ease;
+}
+
+@media all and (min-width: 960px) {
+  .date {
+    font-size: 4vmin;
+  }
+  .date {
+    top: 90vh;
+  }
+}
+
+@media all and (max-width: 959px) and (min-width: 600px) {
+  .date {
+    font-size: 6vmin;
+  }
+    .date {
+    top: 90vh;
+  }
+}
+
+@media all and (max-width: 599px) and (min-width: 50px) {
+  .date {
+    font-size: 9vmin;
+  }
+    .date {
+    top: 95vh;
+  }
+}
