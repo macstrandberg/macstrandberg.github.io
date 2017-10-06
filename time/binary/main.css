@@ -1,0 +1,80 @@
+html {
+  height: 100vh;
+}
+
+body {
+  background-color: #455A64;
+  font-family: 'Roboto', sans-serif;
+  margin: 0 auto;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
+
+table {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+td {
+  width: 5vh;
+  height: 5vh;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.date {
+  display: block;
+  position: absolute;
+  top: 85vh;
+  left: 50%;
+  width: 100vw;
+  height: 100px;
+
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  -webkit-transition: color 0.5s ease;
+  -o-transition: color 0.5s ease;
+  transition: color 0.5s ease;
+}
+
+@media all and (min-width: 960px) {
+  .date {
+    font-size: 4vmin;
+    top: 90vh;
+  }
+
+  td {
+    width: 6vh;
+    height: 6vh;
+  }
+}
+
+@media all and (max-width: 959px) and (min-width: 600px) {
+  .date {
+    font-size: 6vmin;
+    top: 90vh;
+  }
+
+  td {
+    width: 6vh;
+    height: 6vh;
+  }
+}
+
+@media all and (max-width: 599px) and (min-width: 50px) {
+  .date {
+    font-size: 9vmin;
+    top: 95vh;
+  }
+
+  td {
+    width: 5vh;
+    height: 5vh;
+  }
+}

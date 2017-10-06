@@ -124,10 +124,8 @@
         if (timeArr[i] !== undefined) {
           for (let j = 0; j < 6; j++) { // col/cell
             if (timeArr[i][j] === "1") {
-              // tr[i].querySelectorAll('td')[j].textContent = '*';
               tr[i].querySelectorAll('td')[j].style.backgroundColor = '#B0BEC5'
             } else {
-              // tr[i].querySelectorAll('td')[j].innerHTML = '&nbsp;';
               tr[i].querySelectorAll('td')[j].style.backgroundColor = '#37474F'
             }
           }
@@ -148,6 +146,7 @@
     let now = moment();
 
     window.time.draw(now.hour(), now.minute(), now.second());
+    document.querySelectorAll('p')[0].textContent = moment().format('ddd').toLowerCase() + ' | ' + moment().format('MMM').toLowerCase() + ' ' + moment().format('DD');
     requestAnimationFrame(update);
   }
 
