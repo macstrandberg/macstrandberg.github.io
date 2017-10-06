@@ -26,10 +26,6 @@
     getSecond: function() {
       return this.second;
     },
-    setColor: function(timeArr, type) {
-    $clockFace[0].querySelectorAll(table + ' ' + number + ' ' + cell)[0]
-        .style.backgroundColor = color;
-    },
     pad: function(n, width, z) {
       z = z || '0';
       n = n + '';
@@ -122,13 +118,17 @@
       return rowArrangedBinTimes;
     },
     parseBinaryTime: function (timeArr) {
+      let tr = document.querySelectorAll('tbody > tr');
+
       for (let i = 0; i < 4; i++) { // row
         if (timeArr[i] !== undefined) {
           for (let j = 0; j < 6; j++) { // col/cell
             if (timeArr[i][j] === "1") {
-              document.querySelectorAll('tbody > tr')[i].querySelectorAll('td')[j].textContent = '*';
+              // tr[i].querySelectorAll('td')[j].textContent = '*';
+              tr[i].querySelectorAll('td')[j].style.backgroundColor = '#B0BEC5'
             } else {
-              document.querySelectorAll('tbody > tr')[i].querySelectorAll('td')[j].innerHTML = '&nbsp;';
+              // tr[i].querySelectorAll('td')[j].innerHTML = '&nbsp;';
+              tr[i].querySelectorAll('td')[j].style.backgroundColor = '#455A64'
             }
           }
         }
@@ -139,28 +139,20 @@
       this.setMinute(minute);
       this.setSecond(second);
 
-      window.timeArr = this.calculateBinaryTime();
+      let timeArr = this.calculateBinaryTime();
       this.parseBinaryTime(timeArr);
-
-      // this.setColor(this.calculateBinaryTime());
     }
   };
 
   function update() {
     let now = moment();
+
     window.time.draw(now.hour(), now.minute(), now.second());
     requestAnimationFrame(update);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-
     requestAnimationFrame(update);
-
-    // console.group('Time object');
-    //   console.debug('hour %i', window.time.getHour());
-    //   console.debug('minute %i', window.time.getMinute());
-    //   console.debug('second %i', window.time.getSecond());
-    // console.groupEnd();
   });
 
 }());

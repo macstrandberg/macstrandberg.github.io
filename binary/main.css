@@ -5,6 +5,7 @@ html {
 body {
   margin: 0 auto;
   height: 100%;
+  background-color: #455A64;
 }
 
 table {
@@ -14,14 +15,11 @@ table {
   transform: translate(-50%, -50%);
 }
 
-table.clock-face thead th, td{
-  /*border: thin solid black;*/
-}
-
 td {
   width: 20px;
   height: 20px;
   text-align: center;
+  border-radius: 50%;
 }
 
 tr {
