@@ -128,7 +128,7 @@
               tr[i].querySelectorAll('td')[j].style.backgroundColor = '#B0BEC5'
             } else {
               // tr[i].querySelectorAll('td')[j].innerHTML = '&nbsp;';
-              tr[i].querySelectorAll('td')[j].style.backgroundColor = '#455A64'
+              tr[i].querySelectorAll('td')[j].style.backgroundColor = '#37474F'
             }
           }
         }
